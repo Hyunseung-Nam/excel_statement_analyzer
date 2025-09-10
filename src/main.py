@@ -78,13 +78,21 @@ class ExcelSumApp(QMainWindow):
 
             # 이용금액을 안전하게 숫자로 변환(문자/빈값은 NaN→0)
             df["이용금액"] = pd.to_numeric(df["이용금액"], errors="coerce").fillna(0)
-
-            # 키워드 포함된 행 필터링
-            mask = df["이용하신 가맹점"].astype(str).str.contains(keyword, na=False)
+            
+            # 3) 텍스트 정규화(불가시 공백/보이는 공백 제거 + 공백 압축)
+            col = df["이용하신 가맹점"].astype(str)
+            col = (col
+                .str.replace("\u200b", "", regex=False)  # zero-width space
+                .str.replace("\xa0", " ", regex=False)   # non-breaking space
+                .str.replace(r"\s+", " ", regex=True)    # 연속 공백 한 칸으로
+                .str.strip()
+            )
+            
+            mask = col.str.contains(keyword, case=False, regex=False, na=False)
             filtered = df[mask]
             matched = len(filtered)
-
             total = float(filtered["이용금액"].sum())
+            
             self.ui.lbl_sum_result.setText(f"합산 결과: {total:,.0f} 원")
             
             logger.info(
