@@ -36,44 +36,44 @@ class ExcelSumApp(QMainWindow):
 
         self.setWindowTitle("엑셀 명세서 금액 합산기")
         self.ui.btn_load_excel.clicked.connect(self.load_excel)
-        self.ui.btn_calculate.clicked.connect(self.calculate_sum)
+        self.ui.btn_calculate.clicked.connect(self.filter_and_export)
         
         self.ui.btn_keyword_noraebang.clicked.connect(
             lambda: self.ui.input_keyword.setText("노래방")
         )
 
     def load_excel(self):
-        """엑셀 파일 선택 다이얼로그를 띄우고 경로 저장"""
+        """엑셀 파일 선택 다이얼로그"""
         file_path, _ = QFileDialog.getOpenFileName(
             self, "엑셀 파일 선택", "", "Excel Files (*.xlsx *.xls)"
         )
         if not file_path:
-            logger.info("파일 선택 취소됨")
             return
-
         self.file_path = file_path
-        logger.info("파일 선택됨: %s", self.file_path)
         QMessageBox.information(self, "파일 선택됨", f"선택된 파일:\n{self.file_path}")
 
-    def calculate_sum(self):
-        """키워드로 가맹점 검색 후 이용금액 합산"""
+    def filter_and_export(self):
+        """키워드 검색 후 합산 + CSV 저장"""
         if not self.file_path:
             QMessageBox.warning(self, "경고", "먼저 엑셀 파일을 선택하세요.")
-            logger.warning("엑셀 파일이 선택되지 않음")
             return
 
         keyword = self.ui.input_keyword.text().strip()
         if not keyword:
             QMessageBox.warning(self, "경고", "검색할 키워드를 입력하세요.")
-            logger.warning("키워드 미입력")
             return
 
         try:
-            # header=1: 2행을 컬럼명으로 사용(1행 비어있는 파일 대응)
-            df = pd.read_excel(self.file_path, engine="openpyxl", header=1)
-            logger.info("엑셀 로드 완료")
+            # 엑셀 읽기
+            try:
+                df = pd.read_excel(self.file_path, engine="openpyxl", header=1)
+                logger.info("엑셀 로드 완료")
+            except Exception as e:
+                logger.exception("엑셀 파일 읽기 실패")
+                QMessageBox.critical(self, "에러", f"엑셀 파일을 불러오지 못했습니다.\n\n{e}")
+                return
 
-            # '이용하신 가맹점', '이용금액' 컬럼 확인
+            # 필수 컬럼 확인
             if "이용하신 가맹점" not in df.columns or "이용금액" not in df.columns:
                 msg = "엑셀에 '이용하신 가맹점' 또는 '이용금액' 컬럼이 없습니다."
                 QMessageBox.critical(self, "에러", msg)
@@ -83,7 +83,6 @@ class ExcelSumApp(QMainWindow):
             # 이용금액을 안전하게 숫자로 변환(문자/빈값은 NaN→0)
             df["이용금액"] = pd.to_numeric(df["이용금액"], errors="coerce").fillna(0)
             
-            # 3) 텍스트 정규화(불가시 공백/보이는 공백 제거 + 공백 압축)
             col = df["이용하신 가맹점"].astype(str)
             col = (col
                 .str.replace("\u200b", "", regex=False)  # zero-width space
@@ -91,30 +90,40 @@ class ExcelSumApp(QMainWindow):
                 .str.replace(r"\s+", " ", regex=True)    # 연속 공백 한 칸으로
                 .str.strip()
             )
-            
             mask = col.str.contains(keyword, case=False, regex=False, na=False)
             filtered = df[mask]
             matched = len(filtered)
             total = float(filtered["이용금액"].sum())
-            
-            
             self.ui.lbl_sum_result.setText(f"합산 결과: {total:,.0f} 원")
             
-            logger.info(
-                "키워드: '%s', 매칭 %d건, 합계 %s원",
-                keyword, matched, f"{total:,.0f}"
-            )
+            # 매치 결과 확인
+            if matched == 0:
+                logger.warning("키워드 '%s'로 매칭된 행이 없습니다.", keyword)
+                QMessageBox.information(
+                self, " 검색 결과 없음", f"키워드 '{keyword}'와 관련된 내역이 없습니다."
+                )
+                return  # CSV 저장하지 않고 종료
+            
+            # CSV 저장
+            now = pd.Timestamp.now()
+            timestamp_str = now.strftime("%Y%m%d")
+            filename = f"{keyword}_내역_{timestamp_str}.csv"
+            try:
+                filtered.to_csv(filename, encoding="utf-8-sig", index=False)
+                QMessageBox.information(self, "저장 완료", f"CSV 파일로 저장되었습니다:\n{filename}")
+            except Exception as e:
+                logger.exception("CSV 저장 실패")
+                QMessageBox.critical(self, "저장 실패", f"CSV 저장 중 오류 발생:\n{e}")
             
             if matched == 0:
                 logger.warning("키워드 '%s' 로 매칭된 행이 없습니다.", keyword)
 
         except Exception as e:
-            logger.exception("처리 중 예외 발생")
+            logger.exception("처리 중 알 수 없는 오류")
             QMessageBox.critical(self, "에러", f"처리 중 오류 발생:\n{e}")
             
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    
     # 메시지박스 가독성 향상(흰 배경/검은 글씨)
     app.setStyleSheet("""
         QMessageBox {
@@ -128,13 +137,6 @@ if __name__ == "__main__":
             color: black;
         }
     """)
-    
-    df = pd.DataFrame(data=data)
-    now = pd.Timestamp.now()
-    timestamp_str = f"{now.strftime('%Y%m%d')}"
-    filename = f'FlightData_{timestamp_str}.csv'
-    df.to_csv(filename, encoding="utf-8-sig", index=False)
-    
     window = ExcelSumApp()
     window.show()
     sys.exit(app.exec())
