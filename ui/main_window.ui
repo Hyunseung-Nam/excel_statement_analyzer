@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>420</width>
-    <height>360</height>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,12 +38,6 @@
     <!-- 제목 라벨 -->
     <item>
      <widget class="QLabel" name="label">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -53,7 +47,6 @@
       <property name="font">
        <font>
         <pointsize>15</pointsize>
-        <bold>false</bold>
        </font>
       </property>
       <property name="styleSheet">
@@ -74,12 +67,6 @@ padding: 5px;</string>
     <!-- 엑셀 파일 불러오기 버튼 -->
     <item>
      <widget class="QPushButton" name="btn_load_excel">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -105,12 +92,6 @@ QPushButton:hover{
     <!-- 키워드 입력 -->
     <item>
      <widget class="QLineEdit" name="input_keyword">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -126,15 +107,34 @@ QPushButton:hover{
      </widget>
     </item>
 
+    <!-- 미리 준비된 키워드 버튼 -->
+    <item>
+     <widget class="QPushButton" name="btn_keyword_noraebang">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+    color: black;
+    border: 1px solid black;
+    padding: 3px;
+}
+QPushButton:hover{
+    background-color: lightgray;
+}</string>
+      </property>
+      <property name="text">
+       <string>노래방</string>
+      </property>
+     </widget>
+    </item>
+
     <!-- 합산하기 버튼 -->
     <item>
      <widget class="QPushButton" name="btn_calculate">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -160,12 +160,6 @@ QPushButton:hover{
     <!-- 합산 결과 라벨 -->
     <item>
      <widget class="QLabel" name="lbl_sum_result">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -189,7 +183,6 @@ QPushButton:hover{
      </widget>
     </item>
 
-    <!-- 여백/확장용 스페이서(선택) -->
     <item>
      <spacer name="verticalSpacer">
       <property name="orientation">
@@ -206,16 +199,7 @@ QPushButton:hover{
    </layout>
   </widget>
 
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>420</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
+  <widget class="QMenuBar" name="menubar"/>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>

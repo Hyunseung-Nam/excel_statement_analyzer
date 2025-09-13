@@ -37,6 +37,10 @@ class ExcelSumApp(QMainWindow):
         self.setWindowTitle("엑셀 명세서 금액 합산기")
         self.ui.btn_load_excel.clicked.connect(self.load_excel)
         self.ui.btn_calculate.clicked.connect(self.calculate_sum)
+        
+        self.ui.btn_keyword_noraebang.clicked.connect(
+            lambda: self.ui.input_keyword.setText("노래방")
+        )
 
     def load_excel(self):
         """엑셀 파일 선택 다이얼로그를 띄우고 경로 저장"""
@@ -93,6 +97,7 @@ class ExcelSumApp(QMainWindow):
             matched = len(filtered)
             total = float(filtered["이용금액"].sum())
             
+            
             self.ui.lbl_sum_result.setText(f"합산 결과: {total:,.0f} 원")
             
             logger.info(
@@ -123,6 +128,13 @@ if __name__ == "__main__":
             color: black;
         }
     """)
+    
+    df = pd.DataFrame(data=data)
+    now = pd.Timestamp.now()
+    timestamp_str = f"{now.strftime('%Y%m%d')}"
+    filename = f'FlightData_{timestamp_str}.csv'
+    df.to_csv(filename, encoding="utf-8-sig", index=False)
+    
     window = ExcelSumApp()
     window.show()
     sys.exit(app.exec())
