@@ -94,6 +94,11 @@ class ExcelSumApp(QMainWindow):
             filtered = df[mask]
             matched = len(filtered)
             total = float(filtered["이용금액"].sum())
+            summary_row = pd.DataFrame([{
+            "이용하신 가맹점": "합계",
+            "이용금액": total
+            }])
+            export_df = pd.concat([filtered, summary_row], ignore_index=True)
             self.ui.lbl_sum_result.setText(f"합산 결과: {total:,.0f} 원")
             
             # 매치 결과 확인
@@ -109,7 +114,7 @@ class ExcelSumApp(QMainWindow):
             timestamp_str = now.strftime("%Y%m%d")
             filename = f"{keyword}_내역_{timestamp_str}.csv"
             try:
-                filtered.to_csv(filename, encoding="utf-8-sig", index=False)
+                export_df.to_csv(filename, encoding="utf-8-sig", index=False)
                 QMessageBox.information(self, "저장 완료", f"CSV 파일로 저장되었습니다:\n{filename}")
             except Exception as e:
                 logger.exception("CSV 저장 실패")
