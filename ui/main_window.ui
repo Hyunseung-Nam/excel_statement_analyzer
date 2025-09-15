@@ -16,45 +16,10 @@
   <property name="styleSheet">
    <string notr="true">background-color:white</string>
   </property>
-
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="spacing">
-     <number>12</number>
-    </property>
-    <property name="leftMargin">
-     <number>12</number>
-    </property>
-    <property name="topMargin">
-     <number>12</number>
-    </property>
-    <property name="rightMargin">
-     <number>12</number>
-    </property>
-    <property name="bottomMargin">
-     <number>12</number>
-    </property>
-
-    <!-- 제목 라벨 -->
     <item>
      <widget class="QLabel" name="label">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>48</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>15</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: black;
-border: 2px solid black;
-border-radius: 10px;
-padding: 5px;</string>
-      </property>
       <property name="text">
        <string>엑셀 명세서 금액 합산기</string>
       </property>
@@ -63,117 +28,29 @@ padding: 5px;</string>
       </property>
      </widget>
     </item>
-
-    <!-- 엑셀 파일 불러오기 버튼 -->
     <item>
      <widget class="QPushButton" name="btn_load_excel">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-    color: black;
-    border: 2px solid black;
-    padding: 5px;
-}
-QPushButton:hover{
-    background-color: gray;
-}</string>
-      </property>
       <property name="text">
        <string>엑셀 파일 불러오기</string>
       </property>
      </widget>
     </item>
-
-    <!-- 키워드 입력 -->
     <item>
      <widget class="QLineEdit" name="input_keyword">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>32</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: black;</string>
-      </property>
       <property name="placeholderText">
        <string>검색할 가맹점 키워드를 입력하세요</string>
       </property>
      </widget>
     </item>
-
-    <!-- 미리 준비된 키워드 버튼 -->
-    <item>
-     <widget class="QPushButton" name="btn_keyword_noraebang">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>32</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-    color: black;
-    border: 1px solid black;
-    padding: 3px;
-}
-QPushButton:hover{
-    background-color: lightgray;
-}</string>
-      </property>
-      <property name="text">
-       <string>노래방</string>
-      </property>
-     </widget>
-    </item>
-
-    <!-- 합산하기 버튼 -->
     <item>
      <widget class="QPushButton" name="btn_calculate">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton{
-    color: black;
-    border: 2px solid black;
-    padding: 5px;
-}
-QPushButton:hover{
-    background-color: gray;
-}</string>
-      </property>
       <property name="text">
        <string>합산하기</string>
       </property>
      </widget>
     </item>
-
-    <!-- 합산 결과 라벨 -->
     <item>
      <widget class="QLabel" name="lbl_sum_result">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>48</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: black;</string>
-      </property>
       <property name="text">
        <string/>
       </property>
@@ -182,23 +59,8 @@ QPushButton:hover{
       </property>
      </widget>
     </item>
-
-    <item>
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>10</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
    </layout>
   </widget>
-
   <widget class="QMenuBar" name="menubar"/>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
