@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_windowktxfWI.ui'
+## Form generated from reading UI file 'main_windowQcnSKq.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -71,8 +71,8 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\uc5d1\uc140 \uba85\uc138\uc11c \uae08\uc561 \ud569\uc0b0\uae30", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"\uc5d1\uc140 \uba85\uc138\uc11c \uae08\uc561 \ud569\uc0b0\uae30", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\uc5d1\uc140 \uba85\uc138\uc11c \ubd84\uc11d\uae30", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\uc5d1\uc140 \uba85\uc138\uc11c \ubd84\uc11d\uae30", None))
         self.btn_load_excel.setText(QCoreApplication.translate("MainWindow", u"\uc5d1\uc140 \ud30c\uc77c \ubd88\ub7ec\uc624\uae30", None))
         self.input_keyword.setPlaceholderText(QCoreApplication.translate("MainWindow", u"\uac80\uc0c9\ud560 \uac00\ub9f9\uc810 \ud0a4\uc6cc\ub4dc\ub97c \uc785\ub825\ud558\uc138\uc694", None))
         self.btn_calculate.setText(QCoreApplication.translate("MainWindow", u"\ud569\uc0b0\ud558\uae30", None))

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>엑셀 명세서 금액 합산기</string>
+   <string>엑셀 명세서 분석기</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:white</string>
@@ -21,7 +21,7 @@
     <item>
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>엑셀 명세서 금액 합산기</string>
+       <string>엑셀 명세서 분석기</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>

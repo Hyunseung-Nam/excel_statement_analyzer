@@ -15,6 +15,6 @@
   },
 
   "RECENTS_PATH": "recent_files.json",
-  "LOG_PATH": "expense_sum.log",
-  "APP_TITLE": "엑셀 명세서 금액 합산기"
+  "LOG_PATH": "app.log",
+  "APP_TITLE": "엑셀 명세서 분석기"
 }
