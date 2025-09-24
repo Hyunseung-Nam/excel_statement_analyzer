@@ -63,8 +63,8 @@ config.json 파일에서 컬럼명, 카테고리 규칙 등을 쉽게 수정할 
 ### 1. 저장소 클론
 ```bash
 1. 레포지토리 복사
-git clone https://github.com/Hyunseung-Nam/ExpenseCalculator.git
-cd ExpenseCalculator
+git clone https://github.com/Hyunseung-Nam/excel_statement_analyzer.git
+cd excel_statement_analyzer
 
 2. 가상환경 설정(선택사항이지만 권장)
 python -m venv .venv
